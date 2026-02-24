@@ -33,7 +33,7 @@ body{
   gap: 20px;
 }
 
-.logo-polimi{ height: 60px; width:auto; object-fit:contain; }
+.logo-polimi{ height: 80px; width:auto; object-fit:contain; }
 .logo-inria{ height: 60px; width:auto; object-fit:contain; }
 
 .header-right{
@@ -389,4 +389,5 @@ input[type=range]{
   font-size: 34px;
   line-height: 1.1;
   margin: 0 0 10px 0;
+
 }
