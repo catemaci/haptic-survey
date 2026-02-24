@@ -1,0 +1,139 @@
+{
+  "nav": { "back": "Indietro", "next": "Avanti", "finish": "Fine" },
+  "common": { "select": "Seleziona" },
+  "validation": {
+    "required": "Completa tutti i campi obbligatori.",
+    "slidersRequired": "Muovi ogni slider almeno una volta."
+  },
+  "scale": { "low": "basso", "high": "alto" },
+
+  "welcome": {
+    "title": "Benvenuto/a",
+    "intro": "Questo questionario fa parte di uno studio di ricerca per una tesi di laurea magistrale in Ingegneria Meccanica al Politecnico di Milano, in collaborazione con Inria e il Rainbow Team.",
+    "what": "Valuterai caratteristiche legate ai materiali per una serie di oggetti di uso quotidiano. Le risposte saranno usate solo per scopi di ricerca.",
+    "ageCheck": "Confermo di avere almeno 18 anni.",
+    "consentCheck": "Acconsento a partecipare a questo studio.",
+    "privacy": "La partecipazione è volontaria. Puoi interrompere in qualsiasi momento. Non sono richiesti dati identificativi."
+  },
+
+  "background": {
+    "title": "Informazioni di background",
+    "intro": "Rispondi alle seguenti domande.",
+    "age": "Età",
+    "gender": "Genere",
+    "country": "Paese di residenza",
+    "countryPlaceholder": "es. Italia",
+
+    "educationQ": "Qual è il più alto livello di istruzione completato?",
+    "familiarityQ": "Quanto sei familiare con i materiali?",
+    "relatedQ": "Hai un background o esperienza in design, materiali, ingegneria o campi correlati?",
+
+    "genderOptions": {
+      "female": "Donna",
+      "male": "Uomo",
+      "nonbinary": "Non-binary",
+      "prefer_not": "Preferisco non rispondere",
+      "other": "Altro"
+    },
+
+    "educationOptions": {
+      "highschool": "Diploma o equivalente",
+      "bachelor": "Laurea triennale",
+      "master": "Laurea magistrale",
+      "phd": "Dottorato o equivalente",
+      "other_prefer_not": "Altro / Preferisco non rispondere"
+    },
+
+    "familiarityOptions": {
+      "not_at_all": "Per niente",
+      "slightly": "Poco",
+      "moderately": "Moderatamente",
+      "very": "Molto",
+      "extremely": "Estremamente"
+    },
+
+    "relatedOptions": { "yes": "Sì", "no": "No" }
+  },
+
+  "definitions": {
+    "title": "Definizioni",
+    "intro": "Di seguito trovi le definizioni delle caratteristiche usate nello studio.",
+    "howToUse": "Puoi riaprire una definizione in qualsiasi momento cliccando sul punto di domanda (?) accanto allo slider.",
+    "exampleTitle": "Esempi"
+  },
+
+  "case": {
+    "title": "Caso studio",
+    "subtitle": "Guarda l’immagine e valuta l’oggetto usando gli slider.",
+    "instruction": "Muovi ogni slider almeno una volta. Tutte le risposte sono obbligatorie.",
+    "physicalTitle": "Proprietà fisiche",
+    "emotionalTitle": "Reazioni emotive"
+  },
+
+
+  "objects": {
+    "obj1": "Schermo di smartphone",
+    "obj2": "Chiave di metallo",
+    "obj3": "Suola di scarpa da running",
+    "obj4": "Piastrelle di ceramica",
+    "obj5": "Tazza da tè",
+    "obj6": "Maglione di lana",
+    "obj7": "Corteccia d’albero",
+    "obj8": "Giacca di pelle",
+    "obj9": "Manubrio",
+    "obj10": "Gomma da cancellare"
+  },
+
+  "dimensions": {
+    "roughness": {
+      "label": "Rugosità",
+      "definition": "Descrive l’irregolarità o la granulosità percepita della texture di una superficie.",
+      "example": "Basso (liscio): vetro\nAlto (ruvido): carta vetrata"
+    },
+    "hardness": {
+      "label": "Durezza",
+      "definition": "La sensazione di quanto un oggetto appaia solido o rigido quando lo premi.",
+      "example": "Basso (morbido): cuscino\nAlto (duro): blocco di acciaio"
+    },
+    "friction": {
+      "label": "Attrito",
+      "definition": "La resistenza percepita quando fai scorrere il dito su una superficie.",
+      "example": "Basso (scivoloso): saponetta bagnata\nAlto (molta presa): nastro adesivo"
+    },
+    "weight": {
+      "label": "Peso",
+      "definition": "La sensazione di pesantezza causata dalla gravità quando sollevi un oggetto.",
+      "example": "Basso (leggero): piuma\nAlto (pesante): mattone"
+    },
+    "thermal": {
+      "label": "Proprietà termiche",
+      "definition": "Descrivono quanto un materiale sembri freddo o caldo a contatto con la pelle.",
+      "example": "Basso (freddo): cubetto di ghiaccio\nAlto (caldo): fuoco"
+    },
+    "sharpness": {
+      "label": "Spigolosità",
+      "definition": "La sensazione di bordi netti, punte o “pizzicore” sulla superficie di un oggetto.",
+      "example": "Basso (arrotondato): pezzo di tessuto\nAlto (tagliente): mattoncino Lego"
+    },
+    "valence": {
+      "label": "Valenza",
+      "definition": "Indica quanto l’esperienza di tocco sia piacevole o spiacevole.",
+      "example": "Basso (spiacevole): chewing gum sotto un tavolo\nAlto (piacevole): accarezzare un animale morbido"
+    },
+    "arousal": {
+      "label": "Arousal",
+      "definition": "Misura quanto l’interazione risulti stimolante, intensa o attivante.",
+      "example": "Basso (rilassante): riposare sotto una coperta calda\nAlto (molto attivante): toccare qualcosa di elettrificato"
+    }
+  },
+    
+  "final": {
+      "thanksTitle": "Grazie!",
+      "thanksText": "Le tue risposte sono preziose per la nostra ricerca.",
+      "instructions": "Clicca Fine per inviare le risposte, oppure Indietro per rivedere e modificare qualcosa.",
+      "sentOk": "Risposte inviate. Grazie!",
+      "sentFail": "Invio non riuscito. Riprova o controlla la connessione."
+    }
+  
+}
+
