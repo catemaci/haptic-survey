@@ -1,6 +1,3 @@
-# haptic-survey
-Web-based survey platform for a Master’s thesis in Mechanical Engineering (Politecnico di Milano), developed in collaboration with Inria and the Rainbow Team. The study investigates perceived haptic and emotional properties of everyday materials.
-
 # Haptic Experience Study
 
 This repository contains a web-based survey platform developed for a Master's thesis in Mechanical Engineering at Politecnico di Milano, in collaboration with Inria and the Rainbow Team.
