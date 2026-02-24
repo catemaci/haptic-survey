@@ -7,6 +7,10 @@ let sessionId = (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()));
 let language = "en";
 let translations = {};
 
+// Prevent multiple submissions
+let isSubmitting = false;
+let hasSubmitted = false;
+
 const physicalDimensions = ["roughness", "hardness", "friction", "weight", "thermal", "sharpness"];
 const emotionalDimensions = ["valence", "arousal"];
 
@@ -58,10 +62,18 @@ function $(id){ return document.getElementById(id); }
 /* ---------- i18n ---------- */
 
 async function loadLanguage(lang){
+  // cache:no-store avoids stale JSON on GitHub Pages after updates
   const res = await fetch(`i18n/${lang}.json`, { cache: "no-store" });
   translations = await res.json();
   language = lang;
   response.meta.language = lang;
+
+  // If already submitted, keep submitted screen (no rerender to questionnaire)
+  if (hasSubmitted) {
+    renderSubmitted();
+    return;
+  }
+
   renderStage();
 }
 
@@ -151,6 +163,12 @@ function showBottomNav(show){
 }
 
 function updateNavButtons(){
+  // If submitted, lock and hide nav
+  if (hasSubmitted){
+    showBottomNav(false);
+    return;
+  }
+
   if(stageIndex === 0){
     showBottomNav(false);
     return;
@@ -160,12 +178,12 @@ function updateNavButtons(){
   const backBtn = $("backBtn");
   const nextBtn = $("nextBtn");
 
-  backBtn.disabled = (stageIndex === 0);
-  nextBtn.disabled = !canGoNext();
+  backBtn.disabled = (stageIndex === 0) || isSubmitting;
+  nextBtn.disabled = !canGoNext() || isSubmitting;
 
   backBtn.innerText = t("nav.back", "Back");
   nextBtn.innerText = (stageIndex === TOTAL_STAGES - 1)
-    ? t("nav.finish", "Finish")
+    ? (isSubmitting ? t("nav.sending", "Sending...") : t("nav.finish", "Finish"))
     : t("nav.next", "Next");
 }
 
@@ -204,6 +222,9 @@ function canGoNext(){
 }
 
 async function goNext(){
+  // Block all actions after successful submission
+  if (hasSubmitted) return;
+
   if(!canGoNext()){
     showRequiredHint(true);
     return;
@@ -218,14 +239,22 @@ async function goNext(){
     stageIndex += 1;
     renderStage();
   }else{
-    // Finish => submit responses
+    // Finish => submit responses (ONLY ONCE)
+    if (isSubmitting || hasSubmitted) return;
+
+    isSubmitting = true;
     response.completedAt = new Date().toISOString();
+    updateNavButtons();
 
     const ok = await submitToEndpoint();
+
+    isSubmitting = false;
+
     if(ok){
-      alert(t("final.sentOk", "Responses sent. Thank you!"));
-      // Optional: you can freeze UI or keep the final page visible
+      hasSubmitted = true;
+      renderSubmitted();
     }else{
+      updateNavButtons();
       alert(t("final.sentFail", "Submission failed. Please try again or check your connection."));
       return;
     }
@@ -233,6 +262,8 @@ async function goNext(){
 }
 
 function goBack(){
+  if (hasSubmitted || isSubmitting) return;
+
   showRequiredHint(false);
   if(stageIndex === 0) return;
 
@@ -269,6 +300,18 @@ async function submitToEndpoint(){
     console.error(err);
     return false;
   }
+}
+
+/* ---------- Submitted screen ---------- */
+
+function renderSubmitted(){
+  const card = $("stageCard");
+  card.innerHTML = `
+    <h1 class="big-thanks">${t("final.submittedTitle", "Responses sent — thank you!")}</h1>
+    <p class="muted">${t("final.submittedText", "Your responses have been successfully recorded. You may now close this tab.")}</p>
+  `;
+  showBottomNav(false);
+  requestAnimationFrame(() => scrollToTop());
 }
 
 /* ---------- Stage renderers ---------- */
@@ -448,9 +491,9 @@ function renderDefinitions(card){
 
     <div class="def-grid">
       ${dims.map(dim => {
-        const label = t(`dimensions.${dim}.label`, dim);
-        const def = t(`dimensions.${dim}.definition`, "");
-        const ex = t(`dimensions.${dim}.example`, "");
+        const label = t(\`dimensions.${dim}.label\`, dim);
+        const def = t(\`dimensions.${dim}.definition\`, "");
+        const ex = t(\`dimensions.${dim}.example\`, "");
         return `
           <div class="def-card">
             <div class="def-head">
