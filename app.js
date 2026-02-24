@@ -613,4 +613,5 @@ document.addEventListener("keydown", (e) => {
 });
 
 // Init
+
 loadLanguage("en").then(() => renderStage());
