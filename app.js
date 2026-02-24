@@ -1,3 +1,8 @@
+/* =======================
+   Haptic Experience Study
+   app.js (production-ready)
+   ======================= */
+
 let sessionId = (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()));
 let language = "en";
 let translations = {};
@@ -18,6 +23,7 @@ const objects = [
   { key: "obj10", nameKey: "objects.obj10", img: "assets/images/10_rubber_eraser.jpg" }
 ];
 
+// Randomize object order per session
 objects.sort(() => Math.random() - 0.5);
 
 // Stages: 0 welcome, 1 background, 2 definitions, 3..12 cases, 13 final
@@ -25,18 +31,12 @@ const TOTAL_STAGES = 14;
 let stageIndex = 0;
 let caseIndex = 0;
 
-// TEST MODE: open the site with ?test=1 to bypass required validations (for UI checks only)
-const TEST_MODE = new URLSearchParams(window.location.search).get("test") === "0";
+// Production: NO test mode bypass
+const TEST_MODE = false;
 
-const FORCE_STAGE = new URLSearchParams(window.location.search).get("stage");
-if(TEST_MODE && FORCE_STAGE){
-  stageIndex = Number(FORCE_STAGE);
-}
-
-// ==== SUBMISSION ENDPOINT ====
-// Option A (recommended): Google Apps Script Web App URL (see notes below).
-// Paste the URL here:
-const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbwQKUJRGxe_nGZCXp99DDSFEJWnVCPHfX9wReThoEBNCNyz6oZ7rhsFDvBSvgrG_C8H/exec"; // e.g. "https://script.google.com/macros/s/AKfycbwQKUJRGxe_nGZCXp99DDSFEJWnVCPHfX9wReThoEBNCNyz6oZ7rhsFDvBSvgrG_C8H/exec"
+// ==== SUBMISSION ENDPOINT (Google Apps Script Web App /exec) ====
+const SUBMIT_URL =
+  "https://script.google.com/macros/s/AKfycbwQKUJRGxe_nGZCXp99DDSFEJWnVCPHfX9wReThoEBNCNyz6oZ7rhsFDvBSvgrG_C8H/exec";
 
 const response = {
   meta: { sessionId, startedAt: new Date().toISOString(), language },
@@ -55,8 +55,10 @@ const response = {
 
 function $(id){ return document.getElementById(id); }
 
+/* ---------- i18n ---------- */
+
 async function loadLanguage(lang){
-  const res = await fetch(`i18n/${lang}.json`);
+  const res = await fetch(`i18n/${lang}.json`, { cache: "no-store" });
   translations = await res.json();
   language = lang;
   response.meta.language = lang;
@@ -73,10 +75,19 @@ function t(path, fallback=""){
   return (typeof cur === "string") ? cur : fallback;
 }
 
+/* ---------- UI helpers ---------- */
+
 function setProgress(){
   const pct = Math.round(((stageIndex) / (TOTAL_STAGES - 1)) * 100);
   $("progressFill").style.width = `${pct}%`;
   $("progressText").innerText = `${pct}%`;
+}
+
+function scrollToTop(){
+  // Mobile Safari reliable reset
+  window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
 }
 
 function openDefModal(dimKey){
@@ -100,6 +111,8 @@ function closeDefModal(){
   modal.setAttribute("aria-hidden", "true");
 }
 
+/* ---------- Data ---------- */
+
 function ensureCaseState(objKey){
   if(!response.cases[objKey]){
     const sliders = {};
@@ -110,12 +123,17 @@ function ensureCaseState(objKey){
   }
 }
 
+/* ---------- Navigation / rendering ---------- */
+
 function renderStage(){
   setProgress();
   updateNavButtons();
 
   const card = $("stageCard");
   card.innerHTML = "";
+
+  // reset scroll on each stage change
+  requestAnimationFrame(() => scrollToTop());
 
   if(stageIndex === 0) renderWelcome(card);
   else if(stageIndex === 1) renderBackground(card);
@@ -157,6 +175,7 @@ function showRequiredHint(show){
 }
 
 function canGoNext(){
+  // Production: no bypass
   if(TEST_MODE) return true;
 
   if(stageIndex === 0){
@@ -205,9 +224,9 @@ async function goNext(){
     const ok = await submitToEndpoint();
     if(ok){
       alert(t("final.sentOk", "Responses sent. Thank you!"));
+      // Optional: you can freeze UI or keep the final page visible
     }else{
       alert(t("final.sentFail", "Submission failed. Please try again or check your connection."));
-      // keep user on final page (do not advance)
       return;
     }
   }
@@ -227,6 +246,8 @@ function goBack(){
   renderStage();
 }
 
+/* ---------- Submission ---------- */
+
 async function submitToEndpoint(){
   if(!SUBMIT_URL){
     console.warn("SUBMIT_URL is empty. No submission performed.");
@@ -243,7 +264,6 @@ async function submitToEndpoint(){
       body: params
     });
 
-    // We can read res.ok because this is a simple request (no CORS preflight)
     return res.ok;
   }catch(err){
     console.error(err);
@@ -383,15 +403,18 @@ function renderBackground(card){
   $("bgCountry").value = response.background.country;
 
   const eduSel = $("bgEducation");
-  eduSel.innerHTML += Object.entries(eduOptions).map(([k, label]) => `<option value="${k}">${label}</option>`).join("");
+  eduSel.innerHTML += Object.entries(eduOptions)
+    .map(([k, label]) => `<option value="${k}">${label}</option>`).join("");
   eduSel.value = response.background.education;
 
   const famSel = $("bgFamiliarity");
-  famSel.innerHTML += Object.entries(famOptions).map(([k, label]) => `<option value="${k}">${label}</option>`).join("");
+  famSel.innerHTML += Object.entries(famOptions)
+    .map(([k, label]) => `<option value="${k}">${label}</option>`).join("");
   famSel.value = response.background.materialsFamiliarity;
 
   const relSel = $("bgRelated");
-  relSel.innerHTML += Object.entries(relOptions).map(([k, label]) => `<option value="${k}">${label}</option>`).join("");
+  relSel.innerHTML += Object.entries(relOptions)
+    .map(([k, label]) => `<option value="${k}">${label}</option>`).join("");
   relSel.value = response.background.relatedBackground;
 
   function sync(){
@@ -519,7 +542,7 @@ function renderCase(card){
     });
   });
 
-  // Keep tooltip (?) on sliders only (as you wanted)
+  // Tooltip (?) on sliders only
   card.querySelectorAll("[data-def]").forEach(el => {
     el.addEventListener("click", () => openDefModal(el.getAttribute("data-def")));
     el.addEventListener("keydown", (e) => {
@@ -537,7 +560,6 @@ function renderFinal(card){
 
     <div class="notice">
       <p class="muted">${t("final.instructions", "Click Finish to submit your responses, or Back to review and change your answers.")}</p>
-      ${SUBMIT_URL ? "" : `<p class="muted small" style="margin-top:10px;"><strong>${t("final.noEndpointTitle","Important:")}</strong> ${t("final.noEndpointText","Submission is not configured yet (SUBMIT_URL is empty). Your responses will NOT be collected.")}</p>`}
     </div>
   `;
 }
@@ -554,4 +576,5 @@ document.addEventListener("keydown", (e) => {
   if(e.key === "Escape") closeDefModal();
 });
 
+// Init
 loadLanguage("en").then(() => renderStage());
