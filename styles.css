@@ -45,9 +45,14 @@ body{
   min-width: 160px;
 }
 
-.logo-cnrs{ height: 60px; width:auto; object-fit:contain; }
-.logo-polimi{ height: 80px; width:auto; object-fit:contain; }
-.logo-inria{ height: 60px; width:auto; object-fit:contain; }
+
+.logo-cnrs,
+.logo-inria,
+.logo-polimi{
+  height: 48px;      /* desktop size */
+  width: auto;
+  object-fit: contain;
+}
 
 .header-right{
   display:flex;
@@ -119,6 +124,7 @@ body{
 
   .logo-polimi{ height: 30px; }
   .logo-inria{ height: 26px; }
+  .logo_cnrs{ height: 26px}
 
   .progress-wrap{
     min-width: 0;
@@ -494,4 +500,5 @@ input[type=range]{
   line-height: 1.1;
   margin: 0 0 10px 0;
 }
+
 
