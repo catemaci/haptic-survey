@@ -23,7 +23,7 @@
     "age": "Âge",
     "gender": "Genre",
     "relatedOpenQ": "Avez-vous une expérience ou un parcours en design, matériaux, ingénierie ou domaines connexes ? Veuillez expliquer brièvement votre niveau et pourquoi.",
-    "relatedOpenPlaceholder": "Ex. : \"Étudiant en génie mécanique (2 ans), cours sur les matériaux, hobby impression 3D\"",
+    "relatedOpenPlaceholder": "Ex. : Étudiant en génie mécanique (2 ans), cours sur les matériaux, hobby impression 3D",
     "genderOptions": {
       "female": "Femme",
       "male": "Homme",
@@ -113,3 +113,4 @@
     }
   }
 }
+
