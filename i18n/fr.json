@@ -1,94 +1,68 @@
 {
-  "nav": { 
-  "back": "Retour", 
-  "next": "Suivant", 
-  "finish": "Terminer",
-  "sending":"Envoi..."
-},
+  "nav": { "back": "Retour", "next": "Suivant", "finish": "Terminer", "sending": "Envoi..." },
+  "common": { "select": "Sélectionner" },
+  "validation": {
+    "required": "Veuillez compléter tous les champs obligatoires.",
+    "slidersRequired": "Veuillez déplacer chaque curseur au moins une fois."
+  },
+  "scale": { "low": "Faible", "high": "Élevé" },
 
-"common": { 
-  "select": "Sélectionner" 
-},
-
-"validation": {
-  "required": "Veuillez compléter tous les champs obligatoires.",
-  "slidersRequired": "Veuillez déplacer chaque curseur au moins une fois."
-},
-
-"scale": { 
-  "low": "faible", 
-  "high": "élevé" 
-},
-
-"welcome": {
-  "title": "Bienvenue",
-  "intro": "Ce questionnaire s’inscrit dans le cadre d’une étude de recherche pour un mémoire de Master en Génie Mécanique au Politecnico di Milano, en collaboration avec Inria et l’équipe Rainbow.",
-  "what": "Vous évaluerez des caractéristiques liées aux matériaux pour une série d’objets du quotidien. Les réponses seront utilisées uniquement à des fins de recherche.",
-  "ageCheck": "Je confirme avoir au moins 18 ans.",
-  "consentCheck": "J’accepte de participer à cette étude.",
-  "privacy": "La participation est volontaire. Vous pouvez interrompre à tout moment. Aucune donnée permettant de vous identifier n’est requise."
-},
+  "welcome": {
+    "title": "Bienvenue",
+    "intro": "Ce questionnaire s’inscrit dans une étude de recherche pour un mémoire de Master en Génie Mécanique au Politecnico di Milano, en collaboration avec le CNRS, Inria et l’IRISA.",
+    "what": "Vous évaluerez des caractéristiques liées aux matériaux pour une série d’objets du quotidien. Vos réponses seront utilisées uniquement à des fins de recherche.",
+    "ageCheck": "Je confirme avoir au moins 18 ans.",
+    "consentCheck": "Je consens à participer à cette étude.",
+    "privacy": "La participation est volontaire. Vous pouvez arrêter à tout moment. Aucune information permettant de vous identifier n’est demandée.",
+    "start": "Commencer"
+  },
 
   "background": {
-    "title": "Informations de profil",
+    "title": "Informations générales",
     "intro": "Veuillez répondre aux questions suivantes.",
     "age": "Âge",
     "gender": "Genre",
-    "country": "Pays de résidence",
-    "countryPlaceholder": "ex. France",
-
-    "educationQ": "Quel est votre plus haut niveau d’études complété ?",
-    "familiarityQ": "Quel est votre niveau de familiarité avec les matériaux ?",
-    "relatedQ": "Avez-vous une formation ou une expérience en design, matériaux, ingénierie ou domaines connexes ?",
-
+    "relatedOpenQ": "Avez-vous une expérience ou un parcours en design, matériaux, ingénierie ou domaines connexes ? Veuillez expliquer brièvement votre niveau et pourquoi.",
+    "relatedOpenPlaceholder": "Ex. : \"Étudiant en génie mécanique (2 ans), cours sur les matériaux, hobby impression 3D\"",
     "genderOptions": {
       "female": "Femme",
       "male": "Homme",
       "nonbinary": "Non-binaire",
       "prefer_not": "Je préfère ne pas répondre",
       "other": "Autre"
-    },
-
-    "educationOptions": {
-      "highschool": "Lycée ou équivalent",
-      "bachelor": "Licence (Bachelor)",
-      "master": "Master",
-      "phd": "Doctorat (PhD) ou équivalent",
-      "other_prefer_not": "Autre / Je préfère ne pas répondre"
-    },
-
-    "familiarityOptions": {
-      "not_at_all": "Pas du tout familier(ère)",
-      "slightly": "Légèrement familier(ère)",
-      "moderately": "Modérément familier(ère)",
-      "very": "Très familier(ère)",
-      "extremely": "Extrêmement familier(ère)"
-    },
-
-    "relatedOptions": { "yes": "Oui", "no": "Non" }
+    }
   },
 
   "definitions": {
     "title": "Définitions",
     "intro": "Vous trouverez ci-dessous les définitions des caractéristiques utilisées dans cette étude.",
-    "howToUse": "Vous pouvez rouvrir une définition à tout moment en cliquant sur le point d’interrogation (?) à côté du curseur.",
+    "howToUse": "Vous pouvez rouvrir une définition à tout moment en cliquant sur le point d’interrogation entouré (?) à côté de chaque curseur.",
     "exampleTitle": "Exemples"
   },
 
   "case": {
-    "title": "Cas d’étude",
+    "title": "Étude de cas",
     "subtitle": "Regardez l’image et évaluez l’objet à l’aide des curseurs.",
     "instruction": "Déplacez chaque curseur au moins une fois. Toutes les réponses sont obligatoires.",
     "physicalTitle": "Propriétés physiques",
     "emotionalTitle": "Réactions émotionnelles"
   },
 
+  "final": {
+    "thanksTitle": "Merci !",
+    "thanksText": "Vos réponses sont précieuses pour notre recherche.",
+    "instructions": "Cliquez sur Terminer pour envoyer vos réponses, ou sur Retour pour relire et modifier.",
+    "sentFail": "Échec de l’envoi. Veuillez réessayer ou vérifier votre connexion.",
+    "submittedTitle": "Réponses envoyées — merci !",
+    "submittedText": "Vos réponses ont été enregistrées avec succès. Vous pouvez fermer cet onglet."
+  },
+
   "objects": {
     "obj1": "Écran de smartphone",
     "obj2": "Clé en métal",
     "obj3": "Semelle de chaussure de course",
-    "obj4": "Carreaux de céramique",
-    "obj5": "Tasse à thé",
+    "obj4": "Carrelage en céramique",
+    "obj5": "Tasse de thé chaud",
     "obj6": "Pull en laine",
     "obj7": "Écorce d’arbre",
     "obj8": "Veste en cuir",
@@ -99,54 +73,43 @@
   "dimensions": {
     "roughness": {
       "label": "Rugosité",
-      "definition": "Décrit l’irrégularité ou la granularité perçue de la texture d’une surface.",
-      "example": "Faible (lisse) : verre\nÉlevée (rugueuse) : papier de verre"
+      "definition": "Décrit la perception d’irrégularité ou de rugosité de la texture d’une surface.",
+      "example": "Faible (lisse) : verre | Élevé (rugueux) : papier de verre"
     },
     "hardness": {
       "label": "Dureté",
-      "definition": "Sensation de solidité ou de rigidité d’un objet lorsque vous appuyez dessus.",
-      "example": "Faible (mou) : oreiller\nÉlevée (dur) : bloc d’acier"
+      "definition": "La sensation de solidité ou de rigidité d’un objet lorsqu’on appuie dessus.",
+      "example": "Faible (mou) : oreiller | Élevé (dur) : bloc d’acier"
     },
     "friction": {
-      "label": "Frottement",
-      "definition": "Résistance ressentie lorsque vous faites glisser votre doigt sur une surface.",
-      "example": "Faible (glissant) : savon mouillé\nÉlevée (forte adhérence) : ruban adhésif"
+      "label": "Friction",
+      "definition": "La résistance ressentie lorsque vous faites glisser votre doigt sur une surface.",
+      "example": "Faible (glissant) : savon mouillé | Élevé (forte adhérence) : tapis en caoutchouc"
     },
     "weight": {
       "label": "Poids",
-      "definition": "Sensation de lourdeur due à la gravité lorsque vous soulevez un objet.",
-      "example": "Faible (léger) : plume\nÉlevée (lourd) : brique"
+      "definition": "La sensation de lourdeur due à la gravité lorsque vous soulevez un objet.",
+      "example": "Faible (léger) : plume | Élevé (lourd) : brique"
     },
     "thermal": {
       "label": "Propriétés thermiques",
-      "definition": "Décrivent à quel point un matériau paraît froid ou chaud au contact de la peau.",
-      "example": "Faible (froid) : glaçon\nÉlevée (chaud) : feu"
+      "definition": "Décrit la sensation de froid ou de chaud d’un matériau au contact de la peau.",
+      "example": "Faible (froid) : glaçon | Élevé (chaud) : radiateur métallique chauffé"
     },
     "sharpness": {
-      "label": "Acutance",
-      "definition": "Sensation de bords nets, de pointes ou de piquant à la surface d’un objet.",
-      "example": "Faible (arrondi) : morceau de tissu\nÉlevée (tranchant/picotant) : brique Lego"
+      "label": "Agressivité des bords",
+      "definition": "La sensation de bords nets, de pointes ou de piquant sur la surface d’un objet.",
+      "example": "Faible (arrondi) : boule de billard | Élevé (piquant) : cactus"
     },
     "valence": {
       "label": "Valence",
-      "definition": "Renvoie au caractère agréable ou désagréable de l’expérience tactile.",
-      "example": "Faible (désagréable) : chewing-gum sous une table\nÉlevée (agréable) : caresser un animal doux"
+      "definition": "Indique à quel point l’expérience tactile est agréable ou désagréable.",
+      "example": "Faible (désagréable) : toucher une surface visqueuse | Élevé (agréable) : caresser un animal doux"
     },
     "arousal": {
-      "label": "Activation",
+      "label": "Arousal",
       "definition": "Mesure à quel point l’interaction est stimulante, intense ou activante.",
-      "example": "Faible (apaisant) : se reposer sous une couverture chaude\nÉlevée (très activant) : toucher quelque chose d’électrifié"
+      "example": "Faible (apaisant) : se reposer sous une couverture chaude | Élevé (très activant) : tenir une manette de jeu qui vibre"
     }
-  },
-
-  "final": {
-      "thanksTitle": "Merci !",
-      "thanksText": "Vos réponses sont précieuses pour notre recherche.",
-      "instructions": "Cliquez sur Terminer pour envoyer vos réponses, ou sur Retour pour relire et modifier vos réponses.",
-      "sentOk": "Réponses envoyées. Merci !",
-      "sentFail": "Échec de l’envoi. Veuillez réessayer ou vérifier votre connexion.",
-      "submittedTitle":"Réponses envoyées — merci !",
-      "submittedText":"Vos réponses ont été enregistrées avec succès. Vous pouvez fermer cet onglet."
-    }
-
+  }
 }
