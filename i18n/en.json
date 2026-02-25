@@ -1,19 +1,20 @@
 {
-  "nav": { "back": "Back", "next": "Next", "finish": "Finish", "sending":"Sending..." },
+  "nav": { "back": "Back", "next": "Next", "finish": "Finish", "sending": "Sending..." },
   "common": { "select": "Select" },
   "validation": {
     "required": "Please complete all required fields.",
     "slidersRequired": "Please move every slider at least once."
   },
-  "scale": { "low": "low", "high": "high" },
+  "scale": { "low": "Low", "high": "High" },
 
   "welcome": {
     "title": "Welcome",
-    "intro": "This questionnaire is part of a research study for a Master's thesis in Mechanical Engineering at Politecnico di Milano, in collaboration with Inria and the Rainbow Team.",
+    "intro": "This questionnaire is part of a research study for a Master's thesis in Mechanical Engineering at Politecnico di Milano, in collaboration with CNRS, Inria, and IRISA.",
     "what": "You will evaluate material-related characteristics for a set of everyday objects. Your answers will be used for research purposes only.",
     "ageCheck": "I confirm that I am at least 18 years old.",
     "consentCheck": "I consent to participate in this study.",
-    "privacy": "Participation is voluntary. You may stop at any time. No personally identifying information is required."
+    "privacy": "Participation is voluntary. You may stop at any time. No personally identifying information is required.",
+    "start": "Start"
   },
 
   "background": {
@@ -21,38 +22,15 @@
     "intro": "Please answer the following questions.",
     "age": "Age",
     "gender": "Gender",
-    "country": "Country of residence",
-    "countryPlaceholder": "e.g., Italy",
-
-    "educationQ": "What is your highest completed level of education?",
-    "familiarityQ": "How familiar are you with materials?",
-    "relatedQ": "Do you have any background or experience in design, materials, engineering, or related fields?",
-
+    "relatedOpenQ": "Do you have any background or experience in design, materials, engineering, or related fields? Please briefly explain how much and why.",
+    "relatedOpenPlaceholder": "E.g., \"Mechanical engineering student (2 years), materials course, hobbyist 3D printing\"",
     "genderOptions": {
       "female": "Female",
       "male": "Male",
       "nonbinary": "Non-binary",
       "prefer_not": "Prefer not to say",
       "other": "Other"
-    },
-
-    "educationOptions": {
-      "highschool": "High school or equivalent",
-      "bachelor": "Bachelor’s degree",
-      "master": "Master’s degree",
-      "phd": "PhD or equivalent",
-      "other_prefer_not": "Other / Prefer not to say"
-    },
-
-    "familiarityOptions": {
-      "not_at_all": "Not familiar at all",
-      "slightly": "Slightly familiar",
-      "moderately": "Moderately familiar",
-      "very": "Very familiar",
-      "extremely": "Extremely familiar"
-    },
-
-    "relatedOptions": { "yes": "Yes", "no": "No" }
+    }
   },
 
   "definitions": {
@@ -71,12 +49,12 @@
   },
 
   "final": {
-    "title": "Final page",
-    "text": "Thank you for your participation.",
-    "downloadNote": "Click Finish to download your responses as a JSON file.",
-    "thanksAlert": "Thank you! Your responses have been saved.",
-    "reviewTitle": "Quick review",
-    "reviewText": "If you want to change something, use Back."
+    "thanksTitle": "Thank you!",
+    "thanksText": "Your answers are valuable for our research.",
+    "instructions": "Click Finish to submit your responses, or Back to review and change your answers.",
+    "sentFail": "Submission failed. Please try again or check your connection.",
+    "submittedTitle": "Responses sent — thank you!",
+    "submittedText": "Your responses have been successfully recorded. You may now close this tab."
   },
 
   "objects": {
@@ -84,7 +62,7 @@
     "obj2": "Metal key",
     "obj3": "Running shoe sole",
     "obj4": "Ceramic tiles",
-    "obj5": "Tea mug",
+    "obj5": "Hot tea mug",
     "obj6": "Wool sweater",
     "obj7": "Tree bark",
     "obj8": "Leather jacket",
@@ -96,52 +74,42 @@
     "roughness": {
       "label": "Roughness",
       "definition": "Describes the perceived unevenness or coarseness of a surface texture.",
-      "example": "Low (smooth): glass\nHigh (rough): sandpaper"
+      "example": "Low (smooth): glass | High (rough): sandpaper"
     },
     "hardness": {
       "label": "Hardness",
       "definition": "The sensation of how solid or rigid an object feels when you press against it.",
-      "example": "Low (soft): pillow\nHigh (hard): steel block"
+      "example": "Low (soft): pillow | High (hard): steel block"
     },
     "friction": {
       "label": "Friction",
       "definition": "The resistance you feel when sliding your finger across a surface.",
-      "example": "Low (slippery): wet soap bar\nHigh (high grip): adhesive tape"
+      "example": "Low (slippery): wet soap bar | High (high grip): rubber mat"
     },
     "weight": {
       "label": "Weight",
       "definition": "The sensation of heaviness caused by gravity when you lift an object.",
-      "example": "Low (light): feather\nHigh (heavy): brick"
+      "example": "Low (light): feather | High (heavy): brick"
     },
     "thermal": {
       "label": "Thermal Properties",
       "definition": "Describe how cold or hot a material feels against your skin.",
-      "example": "Low (cold): ice cube\nHigh (hot): fire"
+      "example": "Low (cold): ice cube | High (hot): heated metal radiator"
     },
     "sharpness": {
       "label": "Sharpness",
       "definition": "The sensation of distinct edges, points, or prickliness on an object's surface.",
-      "example": "Low (rounded): piece of fabric\nHigh (sharp): Lego brick"
+      "example": "Low (rounded): billiard ball | High (sharp): cactus"
     },
     "valence": {
       "label": "Valence",
       "definition": "Refers to how pleasant or unpleasant the touch experience is.",
-      "example": "Low (unpleasant): chewing gum under a table\nHigh (pleasant): petting a soft animal"
+      "example": "Low (unpleasant): touching a slimy surface | High (pleasant): petting a soft animal"
     },
     "arousal": {
       "label": "Arousal",
       "definition": "Measures how stimulating, intense, or activating the interaction feels.",
-      "example": "Low (calming): resting under a warm blanket\nHigh (highly activating): touching something electrified"
-    },
-    "final": {
-      "thanksTitle": "Thank you!",
-      "thanksText": "Your answers are valuable for our research.",
-      "instructions": "Click Finish to submit your responses, or Back to review and change your answers.",
-      "sentOk": "Responses sent. Thank you!",
-      "sentFail": "Submission failed. Please try again or check your connection.",
-      "submittedTitle": "Responses sent — thank you!",
-      "submittedText": "Your responses have been successfully recorded. You may now close this tab."
+      "example": "Low (calming): resting under a warm blanket | High (highly activating): holding a vibrating game controller"
     }
   }
 }
-
