@@ -23,7 +23,7 @@
     "age": "Età",
     "gender": "Genere",
     "relatedOpenQ": "Hai un background o esperienza in design, materiali, ingegneria o campi affini? Spiega brevemente quanto e perché.",
-    "relatedOpenPlaceholder": "Es.: \"Studentessa di ingegneria meccanica (2 anni), corso sui materiali, hobby stampa 3D\"",
+    "relatedOpenPlaceholder": "Es.: Studentessa di ingegneria meccanica (2 anni), corso sui materiali, hobby stampa 3D",
     "genderOptions": {
       "female": "Donna",
       "male": "Uomo",
@@ -113,3 +113,4 @@
     }
   }
 }
+
