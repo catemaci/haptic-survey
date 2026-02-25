@@ -19,7 +19,7 @@ const objects = [
   { key: "obj2", nameKey: "objects.obj2", img: "assets/images/2_metal_key.jpg" },
   { key: "obj3", nameKey: "objects.obj3", img: "assets/images/3_running_shoe_sole.jpg" },
   { key: "obj4", nameKey: "objects.obj4", img: "assets/images/4_ceramic_tiles.jpg" },
-  { key: "obj5", nameKey: "objects.obj5", img: "assets/images/5_tea_mug.jpg" },
+  { key: "obj5", nameKey: "objects.obj5", img: "assets/images/5_tea_mug.jpg" }, // label changed in i18n
   { key: "obj6", nameKey: "objects.obj6", img: "assets/images/6_wool_sweater.jpg" },
   { key: "obj7", nameKey: "objects.obj7", img: "assets/images/7_tree_bark.jpg" },
   { key: "obj8", nameKey: "objects.obj8", img: "assets/images/8_leather_jacket.jpg" },
@@ -48,10 +48,7 @@ const response = {
   background: {
     age: "",
     gender: "",
-    country: "",
-    education: "",
-    materialsFamiliarity: "",
-    relatedBackground: ""
+    relatedBackground: "" // OPEN TEXT (merged question)
   },
   cases: {},
   completedAt: null
@@ -67,12 +64,10 @@ async function loadLanguage(lang){
   language = lang;
   response.meta.language = lang;
 
-  // If already submitted, keep submitted screen even when changing language
   if (hasSubmitted){
     renderSubmitted();
     return;
   }
-
   renderStage();
 }
 
@@ -194,16 +189,15 @@ function canGoNext(){
   if(stageIndex === 0){
     return response.consent.age18 && response.consent.consent;
   }
+
   if(stageIndex === 1){
     const b = response.background;
     const ageOk = String(b.age).trim() !== "" && Number(b.age) >= 18;
     const genderOk = b.gender !== "";
-    const countryOk = b.country.trim() !== "";
-    const eduOk = b.education !== "";
-    const famOk = b.materialsFamiliarity !== "";
-    const relOk = b.relatedBackground !== "";
-    return ageOk && genderOk && countryOk && eduOk && famOk && relOk;
+    const relOk = String(b.relatedBackground).trim().length > 0;
+    return ageOk && genderOk && relOk;
   }
+
   if(stageIndex === 2) return true;
 
   if(stageIndex >= 3 && stageIndex <= 12){
@@ -233,7 +227,6 @@ async function goNext(){
     stageIndex += 1;
     renderStage();
   }else{
-    // Finish => submit responses (ONLY ONCE)
     if (isSubmitting || hasSubmitted) return;
 
     isSubmitting = true;
@@ -399,71 +392,26 @@ function renderBackground(card){
       </div>
 
       <div class="field">
-        <label>${t("background.country", "Country of residence")} *</label>
-        <input id="bgCountry" type="text" placeholder="${t("background.countryPlaceholder","e.g., Italy")}" />
-      </div>
-
-      <hr class="sep" />
-
-      <div class="field">
-        <label>${t("background.educationQ", "What is your highest completed level of education?")} *</label>
-        <select id="bgEducation">
-          <option value="">${t("common.select", "Select")}</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label>${t("background.familiarityQ", "How familiar are you with materials?")} *</label>
-        <select id="bgFamiliarity">
-          <option value="">${t("common.select", "Select")}</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label>${t("background.relatedQ", "Do you have any background or experience in design, materials, engineering, or related fields?")} *</label>
-        <select id="bgRelated">
-          <option value="">${t("common.select", "Select")}</option>
-        </select>
+        <label>${t("background.relatedOpenQ", "Do you have any background or experience in design, materials, engineering, or related fields? Please briefly explain how much and why.")} *</label>
+        <textarea id="bgRelatedOpen" placeholder="${t("background.relatedOpenPlaceholder","E.g., \"Mechanical engineering student (2 years), materials course, hobbyist 3D printing\"")}"></textarea>
       </div>
 
       <div class="required-hint">${t("validation.required", "Please complete all required fields.")}</div>
     </div>
   `;
 
-  const eduOptions = translations.background?.educationOptions || {};
-  const famOptions = translations.background?.familiarityOptions || {};
-  const relOptions = translations.background?.relatedOptions || {};
-
   $("bgAge").value = response.background.age;
   $("bgGender").value = response.background.gender;
-  $("bgCountry").value = response.background.country;
-
-  const eduSel = $("bgEducation");
-  eduSel.innerHTML += Object.entries(eduOptions)
-    .map(([k, label]) => `<option value="${k}">${label}</option>`).join("");
-  eduSel.value = response.background.education;
-
-  const famSel = $("bgFamiliarity");
-  famSel.innerHTML += Object.entries(famOptions)
-    .map(([k, label]) => `<option value="${k}">${label}</option>`).join("");
-  famSel.value = response.background.materialsFamiliarity;
-
-  const relSel = $("bgRelated");
-  relSel.innerHTML += Object.entries(relOptions)
-    .map(([k, label]) => `<option value="${k}">${label}</option>`).join("");
-  relSel.value = response.background.relatedBackground;
+  $("bgRelatedOpen").value = response.background.relatedBackground;
 
   function sync(){
     response.background.age = $("bgAge").value;
     response.background.gender = $("bgGender").value;
-    response.background.country = $("bgCountry").value;
-    response.background.education = $("bgEducation").value;
-    response.background.materialsFamiliarity = $("bgFamiliarity").value;
-    response.background.relatedBackground = $("bgRelated").value;
+    response.background.relatedBackground = $("bgRelatedOpen").value;
     updateNavButtons();
   }
 
-  ["bgAge","bgGender","bgCountry","bgEducation","bgFamiliarity","bgRelated"].forEach(id => {
+  ["bgAge","bgGender","bgRelatedOpen"].forEach(id => {
     const el = $(id);
     el.addEventListener("input", sync);
     el.addEventListener("change", sync);
@@ -484,9 +432,9 @@ function renderDefinitions(card){
 
     <div class="def-grid">
       ${dims.map(dim => {
-        const label = t(`dimensions.${dim}.label`, dim);
-        const def = t(`dimensions.${dim}.definition`, "");
-        const ex = t(`dimensions.${dim}.example`, "");
+        const label = t(\`dimensions.\${dim}.label\`, dim);
+        const def = t(\`dimensions.\${dim}.definition\`, "");
+        const ex = t(\`dimensions.\${dim}.example\`, "");
         return `
           <div class="def-card">
             <div class="def-head">
@@ -512,6 +460,7 @@ function sliderRow(dim, objKey){
   const state = response.cases[objKey].sliders[dim];
   const untouchedClass = state.touched ? "dim-touched" : "dim-untouched";
 
+  // Removed 0–1 numbers: only Low / High
   return `
     <div class="slider-row ${untouchedClass}">
       <div class="slider-top">
@@ -522,8 +471,8 @@ function sliderRow(dim, objKey){
       </div>
 
       <div class="scale-extremes">
-        <div class="left"><strong>0</strong><span>${low}</span></div>
-        <div class="right"><span>${high}</span><strong>1</strong></div>
+        <div class="left"><span>${low}</span></div>
+        <div class="right"><span>${high}</span></div>
       </div>
 
       <input type="range" min="0" max="1" step="0.01" value="${state.value}" data-dim="${dim}" />
@@ -613,5 +562,4 @@ document.addEventListener("keydown", (e) => {
 });
 
 // Init
-
 loadLanguage("en").then(() => renderStage());
