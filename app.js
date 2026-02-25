@@ -19,7 +19,7 @@ const objects = [
   { key: "obj2", nameKey: "objects.obj2", img: "assets/images/2_metal_key.jpg" },
   { key: "obj3", nameKey: "objects.obj3", img: "assets/images/3_running_shoe_sole.jpg" },
   { key: "obj4", nameKey: "objects.obj4", img: "assets/images/4_ceramic_tiles.jpg" },
-  { key: "obj5", nameKey: "objects.obj5", img: "assets/images/5_tea_mug.jpg" }, // label changed in i18n
+  { key: "obj5", nameKey: "objects.obj5", img: "assets/images/5_tea_mug.jpg" },
   { key: "obj6", nameKey: "objects.obj6", img: "assets/images/6_wool_sweater.jpg" },
   { key: "obj7", nameKey: "objects.obj7", img: "assets/images/7_tree_bark.jpg" },
   { key: "obj8", nameKey: "objects.obj8", img: "assets/images/8_leather_jacket.jpg" },
@@ -48,7 +48,7 @@ const response = {
   background: {
     age: "",
     gender: "",
-    relatedBackground: "" // OPEN TEXT (merged question)
+    relatedBackground: "" // open text
   },
   cases: {},
   completedAt: null
@@ -68,14 +68,15 @@ async function loadLanguage(lang){
     renderSubmitted();
     return;
   }
+
   renderStage();
 }
 
 function t(path, fallback=""){
   const parts = path.split(".");
   let cur = translations;
-  for(const p of parts){
-    if(cur && Object.prototype.hasOwnProperty.call(cur, p)) cur = cur[p];
+  for (const p of parts){
+    if (cur && Object.prototype.hasOwnProperty.call(cur, p)) cur = cur[p];
     else return fallback;
   }
   return (typeof cur === "string") ? cur : fallback;
@@ -84,13 +85,20 @@ function t(path, fallback=""){
 /* ---------- UI helpers ---------- */
 
 function setProgress(){
-  const pct = Math.round(((stageIndex) / (TOTAL_STAGES - 1)) * 100);
-  $("progressFill").style.width = `${pct}%`;
-  $("progressText").innerText = `${pct}%`;
+  const pct = Math.round((stageIndex / (TOTAL_STAGES - 1)) * 100);
+  const fill = $("progressFill");
+  const text = $("progressText");
+  if (fill) fill.style.width = `${pct}%`;
+  if (text) text.innerText = `${pct}%`;
 }
 
 function scrollToTop(){
-  window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  // SAFE: behavior "auto" is standard
+  try{
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }catch(_){
+    window.scrollTo(0, 0);
+  }
   document.documentElement.scrollTop = 0;
   document.body.scrollTop = 0;
 }
@@ -110,6 +118,7 @@ function openDefModal(dimKey){
   modal.classList.add("show");
   modal.setAttribute("aria-hidden", "false");
 }
+
 function closeDefModal(){
   const modal = $("defModal");
   modal.classList.remove("show");
@@ -119,7 +128,7 @@ function closeDefModal(){
 /* ---------- Data ---------- */
 
 function ensureCaseState(objKey){
-  if(!response.cases[objKey]){
+  if (!response.cases[objKey]){
     const sliders = {};
     [...physicalDimensions, ...emotionalDimensions].forEach(dim => {
       sliders[dim] = { value: 0.5, touched: false };
@@ -135,14 +144,16 @@ function renderStage(){
   updateNavButtons();
 
   const card = $("stageCard");
+  if (!card) return;
   card.innerHTML = "";
 
-  requestAnimationFrame(() => scrollToTop());
+  // reset scroll on each stage
+  requestAnimationFrame(scrollToTop);
 
-  if(stageIndex === 0) renderWelcome(card);
-  else if(stageIndex === 1) renderBackground(card);
-  else if(stageIndex === 2) renderDefinitions(card);
-  else if(stageIndex >= 3 && stageIndex <= 12) renderCase(card);
+  if (stageIndex === 0) renderWelcome(card);
+  else if (stageIndex === 1) renderBackground(card);
+  else if (stageIndex === 2) renderDefinitions(card);
+  else if (stageIndex >= 3 && stageIndex <= 12) renderCase(card);
   else renderFinal(card);
 
   updateNavButtons();
@@ -150,7 +161,7 @@ function renderStage(){
 
 function showBottomNav(show){
   const nav = document.querySelector(".bottom-nav");
-  if(!nav) return;
+  if (!nav) return;
   nav.classList.toggle("hidden", !show);
 }
 
@@ -160,7 +171,7 @@ function updateNavButtons(){
     return;
   }
 
-  if(stageIndex === 0){
+  if (stageIndex === 0){
     showBottomNav(false);
     return;
   }
@@ -168,6 +179,7 @@ function updateNavButtons(){
 
   const backBtn = $("backBtn");
   const nextBtn = $("nextBtn");
+  if (!backBtn || !nextBtn) return;
 
   backBtn.disabled = (stageIndex === 0) || isSubmitting;
   nextBtn.disabled = !canGoNext() || isSubmitting;
@@ -180,17 +192,17 @@ function updateNavButtons(){
 
 function showRequiredHint(show){
   const el = document.querySelector(".required-hint");
-  if(el) el.style.display = show ? "block" : "none";
+  if (el) el.style.display = show ? "block" : "none";
 }
 
 function canGoNext(){
-  if(TEST_MODE) return true;
+  if (TEST_MODE) return true;
 
-  if(stageIndex === 0){
+  if (stageIndex === 0){
     return response.consent.age18 && response.consent.consent;
   }
 
-  if(stageIndex === 1){
+  if (stageIndex === 1){
     const b = response.background;
     const ageOk = String(b.age).trim() !== "" && Number(b.age) >= 18;
     const genderOk = b.gender !== "";
@@ -198,9 +210,9 @@ function canGoNext(){
     return ageOk && genderOk && relOk;
   }
 
-  if(stageIndex === 2) return true;
+  if (stageIndex === 2) return true;
 
-  if(stageIndex >= 3 && stageIndex <= 12){
+  if (stageIndex >= 3 && stageIndex <= 12){
     const obj = objects[caseIndex];
     ensureCaseState(obj.key);
     const sliders = response.cases[obj.key].sliders;
@@ -213,20 +225,20 @@ function canGoNext(){
 async function goNext(){
   if (hasSubmitted) return;
 
-  if(!canGoNext()){
+  if (!canGoNext()){
     showRequiredHint(true);
     return;
   }
   showRequiredHint(false);
 
-  if(stageIndex >= 3 && stageIndex <= 12){
-    if(stageIndex < 12) caseIndex += 1;
+  if (stageIndex >= 3 && stageIndex <= 12){
+    if (stageIndex < 12) caseIndex += 1;
   }
 
-  if(stageIndex < TOTAL_STAGES - 1){
+  if (stageIndex < TOTAL_STAGES - 1){
     stageIndex += 1;
     renderStage();
-  }else{
+  } else {
     if (isSubmitting || hasSubmitted) return;
 
     isSubmitting = true;
@@ -237,13 +249,12 @@ async function goNext(){
 
     isSubmitting = false;
 
-    if(ok){
+    if (ok){
       hasSubmitted = true;
       renderSubmitted();
-    }else{
+    } else {
       updateNavButtons();
       alert(t("final.sentFail", "Submission failed. Please try again or check your connection."));
-      return;
     }
   }
 }
@@ -252,11 +263,11 @@ function goBack(){
   if (hasSubmitted || isSubmitting) return;
 
   showRequiredHint(false);
-  if(stageIndex === 0) return;
+  if (stageIndex === 0) return;
 
-  if(stageIndex >= 4 && stageIndex <= 12){
+  if (stageIndex >= 4 && stageIndex <= 12){
     caseIndex -= 1;
-  }else if(stageIndex === 3){
+  } else if (stageIndex === 3){
     caseIndex = 0;
   }
 
@@ -267,7 +278,7 @@ function goBack(){
 /* ---------- Submission ---------- */
 
 async function submitToEndpoint(){
-  if(!SUBMIT_URL){
+  if (!SUBMIT_URL){
     console.warn("SUBMIT_URL is empty. No submission performed.");
     return false;
   }
@@ -292,12 +303,15 @@ async function submitToEndpoint(){
 
 function renderSubmitted(){
   const card = $("stageCard");
+  if (!card) return;
+
   card.innerHTML = `
     <h1 class="big-thanks">${t("final.submittedTitle", "Responses sent — thank you!")}</h1>
     <p class="muted">${t("final.submittedText", "Your responses have been successfully recorded. You may now close this tab.")}</p>
   `;
+
   showBottomNav(false);
-  requestAnimationFrame(() => scrollToTop());
+  requestAnimationFrame(scrollToTop);
 }
 
 /* ---------- Stage renderers ---------- */
@@ -357,7 +371,7 @@ function renderWelcome(card){
   consentCheck.addEventListener("change", sync);
 
   startBtn.addEventListener("click", async () => {
-    if(!canGoNext()){
+    if (!canGoNext()){
       showRequiredHint(true);
       return;
     }
@@ -432,9 +446,9 @@ function renderDefinitions(card){
 
     <div class="def-grid">
       ${dims.map(dim => {
-        const label = t(\`dimensions.\${dim}.label\`, dim);
-        const def = t(\`dimensions.\${dim}.definition\`, "");
-        const ex = t(\`dimensions.\${dim}.example\`, "");
+        const label = t(`dimensions.${dim}.label`, dim);
+        const def = t(`dimensions.${dim}.definition`, "");
+        const ex = t(`dimensions.${dim}.example`, "");
         return `
           <div class="def-card">
             <div class="def-head">
@@ -454,13 +468,12 @@ function renderDefinitions(card){
 
 function sliderRow(dim, objKey){
   const label = t(`dimensions.${dim}.label`, dim);
-  const low = t("scale.low", "low");
-  const high = t("scale.high", "high");
+  const low = t("scale.low", "Low");
+  const high = t("scale.high", "High");
 
   const state = response.cases[objKey].sliders[dim];
   const untouchedClass = state.touched ? "dim-touched" : "dim-untouched";
 
-  // Removed 0–1 numbers: only Low / High
   return `
     <div class="slider-row ${untouchedClass}">
       <div class="slider-top">
@@ -527,11 +540,10 @@ function renderCase(card){
     });
   });
 
-  // Tooltip (?) on sliders only
   card.querySelectorAll("[data-def]").forEach(el => {
     el.addEventListener("click", () => openDefModal(el.getAttribute("data-def")));
     el.addEventListener("keydown", (e) => {
-      if(e.key === "Enter" || e.key === " ") openDefModal(el.getAttribute("data-def"));
+      if (e.key === "Enter" || e.key === " ") openDefModal(el.getAttribute("data-def"));
     });
   });
 
@@ -558,7 +570,7 @@ $("nextBtn").addEventListener("click", () => { goNext(); });
 $("defModalClose").addEventListener("click", closeDefModal);
 $("defModalBackdrop").addEventListener("click", closeDefModal);
 document.addEventListener("keydown", (e) => {
-  if(e.key === "Escape") closeDefModal();
+  if (e.key === "Escape") closeDefModal();
 });
 
 // Init
