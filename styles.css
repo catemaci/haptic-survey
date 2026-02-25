@@ -50,6 +50,7 @@ body{
 .logo-inria,
 .logo-polimi{
   height: 48px;      /* desktop size */
+  max-height: 48px;
   width: auto;
   object-fit: contain;
 }
@@ -500,5 +501,6 @@ input[type=range]{
   line-height: 1.1;
   margin: 0 0 10px 0;
 }
+
 
 
