@@ -23,7 +23,7 @@
     "age": "Age",
     "gender": "Gender",
     "relatedOpenQ": "Do you have any background or experience in design, materials, engineering, or related fields? Please briefly explain how much and why.",
-    "relatedOpenPlaceholder": "E.g., \"Mechanical engineering student (2 years), materials course, hobbyist 3D printing\"",
+    "relatedOpenPlaceholder": "E.g., Mechanical engineering student (2 years), materials course, hobbyist 3D printing",
     "genderOptions": {
       "female": "Female",
       "male": "Male",
@@ -113,3 +113,4 @@
     }
   }
 }
+
