@@ -256,8 +256,11 @@ textarea{
 }
 
 /* ---------- SLIDERS ---------- */
-.object-card{
-  text-align:center;
+.object-card h2{
+  font-size: 32px;
+  font-weight: 800;
+  margin: 10px 0 20px 0;
+  letter-spacing: 0.3px;
 }
 
 .object-image{
@@ -501,6 +504,7 @@ input[type=range]{
   line-height: 1.1;
   margin: 0 0 10px 0;
 }
+
 
 
 
