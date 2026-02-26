@@ -60,13 +60,13 @@
   "objects": {
     "obj1": "Smartphone screen",
     "obj2": "Metal key",
-    "obj3": "Running shoe sole",
+    "obj3": "Kitchen sponge",
     "obj4": "Ceramic tiles",
     "obj5": "Hot tea mug",
     "obj6": "Wool sweater",
     "obj7": "Tree bark",
     "obj8": "Leather jacket",
-    "obj9": "Dumbbell",
+    "obj9": "Bike handle grip",
     "obj10": "Rubber eraser"
   },
 
@@ -113,4 +113,5 @@
     }
   }
 }
+
 
