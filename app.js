@@ -508,7 +508,6 @@ function renderCase(card){
 
       <div class="card object-card" style="box-shadow:none; border:1px solid var(--line);">
         <h2>${t(obj.nameKey, "Object")}</h2>
-        <img class="object-image" src="${obj.img}" alt="${t(obj.nameKey, "Object")}" />
       </div>
 
       <div class="section" style="text-align:left;">
@@ -574,4 +573,5 @@ document.addEventListener("keydown", (e) => {
 });
 
 // Init
+
 loadLanguage("en").then(() => renderStage());
