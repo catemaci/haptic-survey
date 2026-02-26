@@ -60,13 +60,13 @@
   "objects": {
     "obj1": "Schermo di smartphone",
     "obj2": "Chiave in metallo",
-    "obj3": "Suola di scarpa da corsa",
+    "obj3": "Spugna da cucina",
     "obj4": "Piastrelle in ceramica",
     "obj5": "Tazza di tè caldo",
     "obj6": "Maglione di lana",
     "obj7": "Corteccia d’albero",
     "obj8": "Giacca di pelle",
-    "obj9": "Manubrio",
+    "obj9": "Manicotti del manubrio della bicicletta",
     "obj10": "Gomma da cancellare"
   },
 
@@ -113,4 +113,5 @@
     }
   }
 }
+
 
