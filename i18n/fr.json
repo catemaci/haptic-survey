@@ -60,13 +60,13 @@
   "objects": {
     "obj1": "Écran de smartphone",
     "obj2": "Clé en métal",
-    "obj3": "Semelle de chaussure de course",
+    "obj3": "Éponge de cuisine",
     "obj4": "Carrelage en céramique",
     "obj5": "Tasse de thé chaud",
     "obj6": "Pull en laine",
     "obj7": "Écorce d’arbre",
     "obj8": "Veste en cuir",
-    "obj9": "Haltère",
+    "obj9": "Poignées de guidon de vélo",
     "obj10": "Gomme"
   },
 
@@ -113,4 +113,5 @@
     }
   }
 }
+
 
